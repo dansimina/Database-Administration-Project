@@ -1,6 +1,5 @@
 ﻿-- ============================================================
 -- DEMO PREZENTARE - BAZA DE DATE FORMULA 1
--- Script simplificat pentru testare pas cu pas
 -- ============================================================
 
 USE [Formula1];
@@ -9,6 +8,16 @@ USE [Formula1];
 -- SECȚIUNEA 1: STRUCTURA BAZEI DE DATE
 -- Testare:  Tabele, relații 1-n și m-n
 -- ============================================================
+
+SELECT TOP 5 * FROM Drivers ORDER BY totalWins DESC, totalPolePositions DESC;
+SELECT TOP 5 * FROM Teams;
+SELECT TOP 5 * FROM Circuits;
+SELECT TOP 5 * FROM RaceResults;
+SELECT TOP 5 * FROM QualifyingResults;
+SELECT TOP 5 * FROM PitStops;
+SELECT TOP 5 * FROM Cities;
+SELECT TOP 5 * FROM Countries;
+
 -- Test 1.1: Relație 1-n (Countries -> Cities)
 SELECT 
     co.countryName AS Tara,
@@ -374,15 +383,7 @@ EXEC sp_Backup_ListFiles;
 -- ============================================================
 
 -- Test 11.1: Comparare piloți simplu
-EXEC sp_CompareDrivers 
-    @driver1Forename = 'Lewis',
-    @driver1Surname = 'Hamilton',
-    @driver2Forename = 'Max',
-    @driver2Surname = 'Verstappen',
-    @year = 2020;
-
--- Test 11.2: Comparare piloți avansat
-EXEC sp_CompareDriversAdvanced 
+EXEC sp_CompareDriversAdvanced
     @driver1Forename = 'Lewis',
     @driver1Surname = 'Hamilton',
     @driver2Forename = 'Max',
@@ -390,9 +391,19 @@ EXEC sp_CompareDriversAdvanced
     @year = 2020,
     @includeRaceDetails = 1;
 
+-- Test 11.2: Comparare piloți avansat
+EXEC sp_CompareDriversAdvanced 
+    @driver1Forename = 'Nigel',
+    @driver1Surname = 'Mansell',
+    @driver2Forename = 'Ayrton',
+    @driver2Surname = 'Senna',
+    @year = 1992,
+    @includeRaceDetails = 1;
+
 -- Test 11.3: Predicție rezultat cursă
+EXEC sp_Race_GetByYear @year = 2025;
 EXEC sp_PredictRaceResult 
-    @circuitName = 'Bahrain International Circuit',
+    @circuitName = 'Silverstone',
     @year = 2025;
 
 -- Test 11.4: Analiză performanță pilot sezon
