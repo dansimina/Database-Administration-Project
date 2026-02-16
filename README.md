@@ -8,7 +8,7 @@ Built with **Microsoft SQL Server** and **Transact-SQL (T-SQL)**, this project p
 
 ## 📐 Database Schema
 
-![Database Diagram](Diagrama.png)
+![Database Diagram](Diagram.png)
 
 ---
 
